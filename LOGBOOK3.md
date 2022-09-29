@@ -1,4 +1,3 @@
-
 # Trabalho realizado na Semana #3
 
 ##Identification:<br>
@@ -23,3 +22,4 @@
 &nbsp;&nbsp;&nbsp;&nbsp;-After public disclosure, there was a spike in attempts at exploitation.<br>
 
 ##CTF - Sanity Check
+Go to the FSI rules and copy flag{cb995b2293cd7ce3138f7aa57529eb116199962d704e35db7758ed1586b6f9f0}.
