@@ -45,6 +45,37 @@ The environment variables are only inherited when the "environ" parameter is pas
 
 ### 2.4
 
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031963495031382046/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031963580125429811/unknown.png">
+
+Using the system() function, the environment variables are inherited by the new program
+
+#### 2.5
+
+Step 1:
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031967699951177828/unknown.png">
+
+Step 2:
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031967780821545082/unknown.png">
+
+Step 3:
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031975237966897292/unknown.png">
+
+For some reason, the LD_LIBRARY_PATH environment variable is not set when we try to set it.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031976067210162338/unknown.png">
+
+The TEST_VAR environment variable is passed into the Set-UID child process...
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031976183052644412/unknown.png">
+
+... aswell as the PATH environment variable.
+
+#### 2.6
+
 
 ## Week 4 CTF Challenge 
 Steps:
