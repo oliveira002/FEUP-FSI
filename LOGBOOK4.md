@@ -1,4 +1,49 @@
+## Environment Variable and Set-UID Program Lab
 
+### 2.1
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1029069913131860009/unknown.png">
+
+The printenv or env commands display all the environment variables and their values.
+By using printenv <environment_variable> (i.e printenv PWD) it will display the value of the given environment variable. (line 1)
+Using unset <environment_variable> we can clear that value, as seen in the image. (line 2)
+By doing export <environment_variable>=<value> (i.e export PWD=/home/seed) it's possible to create a new environment variable and set it's value (line 4)
+
+### 2.2
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1029155420935303320/unknown.png">
+
+Step 1:
+Compiling the program and saving the output of the binary to a file called file1.txt, we can check which environment variables (and their values) the child process has access to.
+
+
+Step 2:
+Similarly, commenting the printenv() statement for the child process and uncommenting the one for the parent statement and recompiling the program, storing the output of the binary file to a file called file2.txt, we can check which environment variables (and their values) the parent process has access to.
+
+Step 3:
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1029156131416846466/unknown.png">
+
+By using the  "diff file1.txt file2.txt" command, it's possible to see the differences between both files. Since the command has no output, meaning that there is no difference between the files, we can assume that both the parent and child processes share the same environment variables.
+
+### 2.3
+
+Step 1:
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1029700732984770580/unknown.png">
+
+Passing NULL to execve() running the env command prints nothing.
+
+Step 2:
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031958865413148722/unknown.png">
+
+Passing environ to execve() running the env command prints the environment variables.
+
+Step 3:
+The environment variables are only inherited when the "environ" parameter is passed to the execve() function, otherwise they wont.
+
+### 2.4
 
 
 ## Week 4 CTF Challenge 
