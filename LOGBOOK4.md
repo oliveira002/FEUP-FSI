@@ -76,6 +76,14 @@ The TEST_VAR environment variable is passed into the Set-UID child process...
 
 #### 2.6
 
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031984319893344386/unknown.png">
+
+Can you get this Set-UID program to run your own malicious code, instead of /bin/ls? 
+
+
+If you can, is your malicious code running with the root privilege?
+
+
 
 ## Week 4 CTF Challenge 
 Steps:
