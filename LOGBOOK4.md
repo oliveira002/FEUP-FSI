@@ -76,13 +76,21 @@ The TEST_VAR environment variable is passed into the Set-UID child process...
 
 #### 2.6
 
-<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1031984319893344386/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032665632300343369/unknown.png">
 
-Can you get this Set-UID program to run your own malicious code, instead of /bin/ls? 
+**Can you get this Set-UID program to run your own malicious code, instead of /bin/ls?**<br>
+Since a Set-UID program will be executed with the privileges of its owner, by manipulating the environment variables of that program, a user can alter its behaviour, causing it to run the wrong commands. In this case, the 'ls' command is called, but, by adding the prefix /home/seed to the PATH environment variable and creating a program called 'ls' in that directory we can run our 'ls' program, instead of the standard 'ls' command.<br>
+The problem with this approach is that any system call will end up calling /bin/dash, which has "a countermeasure that prevents itself from being executed in a Set-UID process". To avoid this, and to be able to exploit Set-UID programs, we will need to link /bin/sh to another shell program that doesn't have this countermeasure, like /bin/zsh.<br>
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032666088850342031/unknown.png">
 
 
-If you can, is your malicious code running with the root privilege?
+**If you can, is your malicious code running with the root privilege?**<br>
+If the Set-UID program has root privileges, our malicious code can run root-only operations.
 
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032666833385443369/unknown.png">
+
+In this case, the program.c program used a system() call to run the 'ls' command. Since it was a Set-UID program, we managed to exploit it, by adding /home/seed to the beginning of the PATH environment variable, to run our version of 'ls' that we placed in /home/seed. Our version of 'ls', originally, couldn't run it's own system() call, because it didn't have root privilege, but, since the program that called it had root privilege, it ended up doing the system() call anyway, executing our potentially malitious code
 
 
 ## Week 4 CTF Challenge 
