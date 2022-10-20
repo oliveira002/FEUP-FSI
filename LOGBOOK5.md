@@ -10,7 +10,15 @@ Após isso, o código dado foi compilado, resultando dois ficheiros binários, u
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1032749044679839764/unknown.png">
 
+### Task 2
+
+Nesta tarefa, é-nos pedido para compilar um código dado, desligando a StackGuard e as *non-executable stack protections* e, de seguida, tornar o programa num programa Set-UID cujo dono é root.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032753333431177356/unknown.png">
+
 ### Task 3
+
+
 
 ## Week 5 CTF Challenge 
 ### Challenge 1
