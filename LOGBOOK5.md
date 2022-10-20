@@ -2,7 +2,7 @@
 
 ## Week 5 CTF Challenge 
 ### Challenge 1
-Inicialmente, é nos dado um ficheiro .zip que contém um script python, um ficheiro chamado flag.txt, um pedaço de codigo em C
+Inicialmente, é-nos dado um ficheiro .zip que contém um script python, um ficheiro chamado flag.txt, um pedaço de codigo em C
 um ficheiro de texto mem.txt e um ficheiro chamado 'program' que é a versão compilada do codigo em C.
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1032673693932998666/unknown.png">
