@@ -1,5 +1,17 @@
 ## Buffer Overflow Attack Lab (Set-UID Version)
 
+### Task 1
+
+Nesta tarefa, começamos por desativar a *address randomization*, de modo a que os endereços sejam sempre os mesmos cada vez que o programa é executado. De seguida, a shell /bin/sh foi ligada a uma nova shell /bin/zsh que é suscetivel a ataques a programas Set-UID.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032749441393889432/unknown.png">
+
+Após isso, o código dado foi compilado, resultando dois ficheiros binários, um para arquitetura 32bits e outro para arquitetura 64bits. Quando executados, ambos deram acesso a uma shell.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032749044679839764/unknown.png">
+
+### Task 3
+
 ## Week 5 CTF Challenge 
 ### Challenge 1
 Inicialmente, é-nos dado um ficheiro .zip que contém um script python, um ficheiro chamado flag.txt, um pedaço de codigo em C
