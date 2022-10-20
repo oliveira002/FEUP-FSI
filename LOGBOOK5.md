@@ -30,7 +30,7 @@ Agora que sabemos o metodo de ataque, utilizando o script python fornecido, com 
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1032701222798508062/unknown.png">
 
-<br>TLDR: <br>
+<br> TLDR: <br>
 Existe algum ficheiro que é aberto e lido pelo programa?<br>
 - Sim, o ficheiro mem.txt.<br>
 
@@ -42,5 +42,27 @@ Existe algum buffer-overflow? Se sim, o que é que podes fazer?<br>
 
 ### Challenge 2
 
+O segundo desafio é semelhante ao primeiro, na medida em que o metodo e o objetivo são os mesmos, apenas com pequenas alterações.
+A estrutura do ficheiro .zip que nos é dado é a mesma, sendo o código em C a maior alteração.
+Fazendo a análise de permissões de compilação do programa chegamos às mesmas conclusões que anteriormente.
 
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032704513112551465/unknown.png">
+
+Passando à análize às alterações feitas ao código C, deparamo-nos com uma buffer secundária, cujo objetivo unico é verificar alterações feitas utilizando buffer overflow. Utilizando a mesma técnica do desafio anterior, alterando o seu conteúdo para o valor 0xfefc2223, é possível dar bypass à verificação imposta, lendo assim o ficheiro desejado, ao invés do ficheiro mem.txt.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032710222453669979/unknown.png">
+
+Assim sendo, introduzindo uma string the 20chars, seguido do valor pretendido (0xfefc2223), tendo em atenção que a arquitetura utilizada é little-endian, o que significa que o byte menos significativo é guardado primeiro, sendo necessário inverter a ordem de introdução dos bytes, seguido do nome do ficheiro pretendido, é possível obter a flag. Ans: flag{919a6b96138dac079a9fb72efe6e8985}
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032711160581070988/unknown.png">
+
+<br> TLDR: <br>
+Que alterações foram feitas?<br>
+- Foi criada uma buffer secundária que verifica se houve alterações do seu conteúdo.<br>
+
+Mitigam na totalidade o problema?<br>
+- Não, pois é possível reescrever o conteúdo da mesma de forma a entrar no *if* de verificação.<br>
+
+É possivel ultrapassar a mitigação usando uma técnica similar à que foi utilizada anteriormente?<br>
+- Sim, basta escrever 20 chars na buffer original, seguidos do valor de verificação da buffer secundária, seguido do nome do ficheiro prentendido.<br>
 
