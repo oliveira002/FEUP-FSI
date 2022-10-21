@@ -25,10 +25,20 @@ Na parte da investigação, é-nos pedido para compilar o programa dado em modo 
 Utilizando o modo debug, colocamos um break point na função bof()...
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1032754860992512040/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032755993819484210/unknown.png">
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032756064166359162/unknown.png">
 
 ...e obtivemos os endereços do EBP e da buffer.
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1032756223663161445/unknown.png">
+
+Como a buffer apenas guarda 100 chars e queremos escrever 517, irá haver um overflow dessa mesma buffer, que irá reescrever os endereços de memória adjacentes. Deste modo, escrevendo o shellcode no fundo da string e colocando o endereço de retorno com o valor start + buffer, com um offset de ebp - buff + 4 (=112), ou seja, no bloco da stack a seguir a ebp-buff.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1033139254198550569/unknown.png">
+
+Ao correr o script python e, de seguida, o código C, verifica-se que o ataque foi bem sucedido, pois abre uma shell.
+
+<img src="">
 
 ## Week 5 CTF Challenge 
 ### Challenge 1
