@@ -38,7 +38,7 @@ Como a buffer apenas guarda 100 chars e queremos escrever 517, irá haver um ove
 
 Ao correr o script python e, de seguida, o código C, verifica-se que o ataque foi bem sucedido, pois abre uma shell.
 
-<img src="">
+<img src="https://cdn.discordapp.com/attachments/953317249140273172/1033153060454805504/unknown.png">
 
 ## Week 5 CTF Challenge 
 ### Challenge 1
