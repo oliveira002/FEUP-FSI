@@ -18,7 +18,17 @@ Nesta tarefa, é-nos pedido para compilar um código dado, desligando a StackGua
 
 ### Task 3
 
+Na parte da investigação, é-nos pedido para compilar o programa dado em modo debug e torna-lo num programa Set-UID. Isto pode ser feito correndo o comando make na diretoria onde se encontra o programa. Logo de seguida, criamos um ficheiro vazio chamado badfile
 
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032754654586609684/unknown.png">
+
+Utilizando o modo debug, colocamos um break point na função bof()...
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032754860992512040/unknown.png">
+
+...e obtivemos os endereços do EBP e da buffer.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1032756223663161445/unknown.png">
 
 ## Week 5 CTF Challenge 
 ### Challenge 1
