@@ -48,4 +48,6 @@ After that, we just have to make sure all the printed chars add up to 0x5000 (20
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1040300445782003732/image.png">
 
-## Week 6 CTF Challenge 
+## Week 6 CTF Challenge
+
+WIP
