@@ -22,8 +22,14 @@ We don't know the exact inner workings, but our best informed guess is that this
 
 #### Task 2a
 
-
+In order to print the first 4 bytes of our input, we first need to define which input we're going to search for. In our case, we chose the hex string "DEADBEEF". <br> 
+Afterwards, we need to calculate how many "%x" format specifiers are needed in order to get to our string. <br>
+We did this via trial and error: first, we chose a big arbitrary number, like 100, and ran the program, finding our string on the output. Then we chose another number we thought would be close to the real number, like 50, and repeated the process. Continuing this process we eventually got 64 as an answer.
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1040004247518982285/image.png">
+
+#### Task 2b
+
+
 
 ## Week 6 CTF Challenge 
