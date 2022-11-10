@@ -16,10 +16,14 @@ Upon further investigation, we found out that "%n" is a string formater that tak
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1039997115570597919/image.png">
 
-We don't know the exact inner workings, but our best informed guess is that this "%n" is overwriting something needed for program execution, like the return address of the function that calls the myprintf() function, causing it to crash.
+We don't know the exact inner workings, but our best informed guess is that this "%n" is either overwriting something needed for program execution, like the return address of the function that calls the myprintf() function, causing it to crash or attempting to write on the stack without permission to do so.
 
 ### Task 2
 
 #### Task 2a
+
+
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1040004247518982285/image.png">
 
 ## Week 6 CTF Challenge 
