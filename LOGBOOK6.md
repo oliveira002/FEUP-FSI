@@ -49,5 +49,80 @@ After that, we just have to make sure all the printed chars add up to 0x5000 (20
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1040300445782003732/image.png">
 
 ## Week 6 CTF Challenge
+### Challenge 1
 
-WIP
+First we started by running checksec on the given program, which yielded the follwing results:
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041738126101581835/image.png">
+
+- RELRO: Partial RELRO -> Means that the Global Offset Table is moved in memory. This does not prevent format string attacks.
+- Stack: Canary Found -> Means that there is a canary in the stack, which will make it harder to perform buffer overflow attacks.
+- NX: NX Enabled -> Means that DEP is enabled.
+- PIE: No PIE -> Means that ASLR is disabled.
+
+Upon running checksec, we analyzed the given source code and answered the proposed questions:
+
+- Qual é a linha do código onde a vulnerabilidade se encontra? 
+    - Line 27 ( printf(buffer); ) is vulnerable to format string attacks.
+- O que é que a vulnerabilidade permite fazer?
+    - Write or read from memory.
+- Qual é a funcionalidade que te permite obter a flag?
+    - Sending a payload with format specifiers in it allows us to read or even write on memory. 
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041779399223169144/image.png">
+
+Afterwards, we gave execute permissions to the exploit_example.py script and attached a gdb instance to the program's pid.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041749863429316640/image.png">
+
+Since we want to read the value of a global variable and ASLR is disabled, we can use gdb to grab it's address (0x804c060) so we can later on build the payload with it. 
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041750034154258564/image.png">
+
+Now that we have the address of the variable, we can start calculating the offset of the start of the buffer that's storing our malicious input. Turns out the buffer is right after the vulnerable printf() statement.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041747769104269392/image.png">
+
+Since the buffer is straight after the printf() statement, placing the address of the variable we want to read at the start of the buffer followed by a single "%s" format specifier will allow us to read the contents of this variable.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041748217735430235/image.png">
+
+Now we only have to run the exploit_example.py script outside local mode in order to get the flag. (flag{638c3092c156c1c73052fa3289a81106})
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041750756279201934/image.png">
+
+### Challenge 2
+
+Similar to the last challenge, we ran checksec on the given program. Since the results were the same, we'll refrain from explaining them again.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041784507180781609/image.png">
+
+Analyzing the source code we got the answers to the following questions:
+- Qual é a linha do código onde a vulnerabilidade se encontra? E o que é que a vulnerabilidade permite fazer?
+    - Line 14 ( printf(buffer); ) is vulnerable to format string attacks, which allows us to write or read from memory.
+- A flag é carregada para memória? Ou existe alguma funcionalidade que podemos utilizar para ter acesso à mesma?
+    - The flag is never loaded into memory. The way to access it is via a shell that's opened in the code via a system() call.
+- Para desbloqueares essa funcionalidade o que é que tens de fazer?
+    - By altering the value of the key variable to "0xbeef" we can enter the if statement that opens the shell, allowing us to read the flag.txt file
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041784706976464927/image.png">
+
+Now that we know what we need to do, we can follow the same procedure we used in the last challenge to obtain the address of the key variable (0x804c034).
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041786851809312819/image.png">
+
+Upon finding the address we need for the payload, we, once again, tried to find the offset of the start of the buffer so that we can prepare our payload. Once again, it's right next to the printf() statement.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041789223096815626/image.png">
+
+Since this time we need to change the value of a variable, we need to use the %n format specifier. <br>
+The intented value for the variable is 0xbeef, the same as 48879 in decimal form, which means we neeed to print 48879 chars before writing to the memory block that holds the key variable's value. <br>
+Because a single format specifier will start reading into the buffer, we can't put the address of the variable right at the start, or else we won't have the "space" to write the amount of characters needed for the exploit. <br>
+This means that we'll need to write something random first, then the address of the variable and only then we can start processing our very own input. <br>
+In this case we chose to write a 4 byte string, "0000" (30303030 in hexadecimal), before our 4 byte address, which means that we'll be printing 8 chars, leaving us with 48871 chars left to be written, which we can do so with a "%.48871x" format specifier. <br>
+Having ensured exactly "0xbeef" chars have been written to the stdout, we can now overwrite the value of the key variable using a "%n" format specifier. <br>
+Executing the script confirms our procedure was correct, since we got the "Backdoor" message and a shell open. <br>
+Now all we have to do is print the contents of the flag.txt file, giving us the desired flag(flag{500c226130f2e19c8407dcee589a0419}).
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1041788573373972520/image.png">
+
