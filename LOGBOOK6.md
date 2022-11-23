@@ -30,7 +30,7 @@ We did this via trial and error: first, we chose a big arbitrary number, like 10
 
 #### Task 2b
 
-In order to read the secret message, all we have to do is instert it's address (already given to us by the server) at the beginning of our payload and repeat the process of part a) of this task with a minor change: Instead of printing out 64 hexadecimal values, we'll print 63 of them and since the 64th is our secret message's address, if we pass that address to a "%s" format specifier, it will read the contents from there.
+In order to read the secret message, all we have to do is insert it's address (already given to us by the server) at the beginning of our payload and repeat the process of part a) of this task with a minor change: Instead of printing out 64 hexadecimal values, we'll print 63 of them and since the 64th is our secret message's address, if we pass that address to a "%s" format specifier, it will read the contents from there.
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1040290663767490600/image.png">
 
