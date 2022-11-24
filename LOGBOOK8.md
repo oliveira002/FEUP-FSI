@@ -2,9 +2,24 @@
 
 ### Task 1
 
+After logging into the MySQL container we can just enter a simple SELECT query to get all the info of the user Alice
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1044215513313710150/image.png">
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1044215577335562260/image.png">
+
 ### Task 2
+#### Task 2.1
+
+#### Task 2.2
+
+#### Task 2.3
 
 ### Task 3
+#### Task 3.1
+
+#### Task 3.2
+
+#### Task 3.3
 
 ## Week 8 CTF Challenge
 ### Challenge 1
