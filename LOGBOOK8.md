@@ -119,3 +119,24 @@ All that's left to do is pwn the website, obtaining the flag (flag{21e977547fb42
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1042508682845499453/image.png">
 
 ### Challenge 2
+
+In this challenge we're given a piece of code running in the server. <br>
+The first thing we did was run checksec on it and noticed that only PIE (ASLR) was enabled. <br>
+After that, we proceeded to inspect the code and answer the proposed questions:
+
+- Q: Qual é a linha do código onde a vulnerabilidade se encontra? 
+    - R: Line 12.
+- Q: O que é que a vulnerabilidade permite fazer?
+    - R: Allows us to an infinite size string causing a buffer overflow.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047264436039192606/image.png">
+
+Since the best approach seems to be a buffer overflow attack on the gets() function, we decided to try the same method we used for the week 5 tasks. <br>
+In order to do so, a few values are needed: the buffer address and the ebp address. Both can be obtained using gdb.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047271087941095485/image.png">
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047271226344742964/image.png">
+
+
+
+
