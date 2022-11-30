@@ -137,6 +137,7 @@ In order to do so, a few values are needed: the buffer address and the ebp addre
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047271087941095485/image.png">
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047271226344742964/image.png">
 
+Upon getting the buffer address (0xffffd0d0) and the ebp address (0xffffd138), 
 
 
 
