@@ -137,7 +137,16 @@ In order to do so, a few values are needed: the buffer address and the ebp addre
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047271087941095485/image.png">
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047271226344742964/image.png">
 
-Upon getting the buffer address (0xffffd0d0) and the ebp address (0xffffd138), 
+Upon getting the buffer address (0xffffd0d0) and the ebp address (0xffffd138), we proceeded to craft our payload building script. <br>
+First we got the shell code from the previous Buffer Overflow lab. (line 13) <br>
+Then we allocated enough space to overwrite the return address. We needed a total of 112 memory spaces: 104 from the start of the buffer to the ebp registry (138-d0d), +4 for the ebp registry and +4 for the return address registry, which is right next to the ebp. (line 19) <br>
+After that, we placed the shell code somewhere in our payload, in this case we decided to put it at the start, making sure we don't occupy the last 4 slots, which are reserved for our new return address. (line 23) <br>
+Since PIE is enabled, the buffer address in the running program will be offset by a fixed random amount but this isn't a problem because the server outputs the address of the buffer, so we could just read from the stdout and do a little bit of parsing. (line 31,32 and 33) <br>
+This address will be our new return address so that when the program exits the function, it tries to read it's return address but our code will be ran instead of the normal program code. All we have to do we is place it at the end of our paylod (line 38). <br>
 
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047292308455968829/image.png">
 
+All that's left to do is execute the script in non-Debug mode, getting the shell on the server allowing us to to read from the flag.txt file, containing the flag (flag{431cf18234ac3129a9fd9f37edec8f9c}).
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1047291189373718548/image.png">
 
