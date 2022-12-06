@@ -48,7 +48,7 @@ Now that we know what action is invoked and what arguments are passed, we can cr
 The request receives as arguments some sort of user identifier passed in the "friend" field, in Samy's case it's 59, and two Elgg fields: __elgg_ts and __elgg_token. <br>
 With this in mind, using the given code, we can easily build our script and place it into Alice's description.
 
-```js
+```html
 <script type="text/javascript">
         window.onload = function () {
                 var Ajax=null;
@@ -92,6 +92,80 @@ Just to make sure, we tested this with an unsuspecting victim, Charlie.
 
 ## Week 10 CTF Challenge
 ### Challenge 1
+
+Initially, upon loading the website, we're met with a single input field, which automatically made us think of XSS attacks, so, to test this hypothesis, we tried to inject a simple javascript script that would output "teste" to the console.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049766868950458388/image.png">
+
+This form is indeed vulnerable to XSS attacks, confirmed by the output in the console. <br>
+(We totally didn't try anything prior to this using the alert() function which didn't leave our browser with a near permanent popup)
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049766984658718810/image.png">
+
+On this new page, that mirrors the admin page with a few changes, we found two disabled buttons and a textbox with our previous input. <br>
+We proceeded to analyze the html code of the webpage, trying to find anything we could use to submit the "Give the flag" form, sending an HTTP request to the responsible action. <br>
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049767167308083240/image.png">
+
+Because the action is not visible on the html, we found a workaround, which consisted of injecting javascript code that would enable the "Give the flag" button so that we could press it in order to try and trigger the action.
+
+```html
+<script> 
+    document.getElementById('giveflag').removeAttribute("disabled");
+</script>
+```
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049768734316822538/image.png">
+
+This worked, and the button (actually, it's not a button, it's an input with type submit but it essentially works like a button, so we'll keep refering to it as one) was now clickable.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049769572653338674/image.png">
+
+A new problem arose, when we clicked it, because we got met by a 403 Forbidden access page, meaning whoever built the website put in place policies preventing users from submiting HTTP requests only admins should be able to. 
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049769590974066698/image.png">
+
+This is not so bad because now we know what the POST HTTP request is, so all we need to do is find a way to have the admin submit the request unwillingly. <br>
+In order to do so, we put together a bit of js code that would build and send this POST request and injected it onto the justification textbox so that when the admin loaded the page it would run and, hopefully, authorize the request.
+
+```html
+<script type="text/javascript">
+        window.onload = function () {
+                var Ajax=null;
+                
+		        //Current URL can be sent via POST
+                var sendurl= window.location.href";
+
+                //Create and send Ajax request to add friend
+                Ajax=new XMLHttpRequest();
+                Ajax.open("POST", sendurl, true);
+                Ajax.send();
+        }
+</script>
+```
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049782278873694238/image.png">
+
+Turns out this actually works, and we got presented with the flag (flag{cc4b37d6a3dc659d16c8e714a21b41eb}).
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049774828267253870/image.png">
+
+But we knew this wasn't the only method there was to get the flag. <br>
+Since it's stated that the admin always clicks the "Mark request as read" button, we wanted to try and make it so that this button, instead of submiting it's own form, would submit the "Give the flag" form. <br>
+This is very easily done with some basic javascript knowledge: all we have to do is change the onclick function of this button and make it click the other button, submiting the other form. To make sure the "Mark request as read" form is not submited, we disable the submit feature of this button by returning false on it's onclick function.
+
+ ```html
+<script>document.getElementById('markAsRead').onclick=function() {document.getElementById('giveflag').click(); return false;}</script>
+ ```
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049774753457651772/image.png">
+
+Like expected, this works, and we get the same flag as we did before.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049774828267253870/image.png">
+
+
+Note: while testing the methods documented here at a later time, for writting purposes, we found that the flag changed from flag{cc4b37d6a3dc659d16c8e714a21b41eb} to flag{0272a7849282b7ee095c5ee1ede48692}. We're not sure as to why this happened, but our best guess is that this is an anti-cheating feature that checks when a flag is submited and changes it, making it subjectively harder to copy.
 
 ### Challenge 2
 
