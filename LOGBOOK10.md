@@ -169,3 +169,39 @@ Note: while testing the methods documented here at a later time, for writting pu
 
 ### Challenge 2
 
+In this challenge we're presented with a website, without it's source code, making it harder to figure out the present vulnerability. <br>
+Exploring through the web pages, we noticed multiple possible entry points we could use to exploit. <br>
+These entry points are the following:
+
+- Login form: Possibly vulnerable to SQL Injection .
+- Speed Report Page: Loads third party content.
+- Ping a Host form: Seems to run the bash ping command on the server and output the result. Possbly vulnerable to XSS attacks.
+
+With this in mind we started exploring but nothing appeared to work. <br>
+We couldn't inject SQL code on the login form because the email input box has some pesky formatting rules. <br>
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049800769177649272/image.png">
+
+We couldn't find a way to mess around with the third party integration of giphy. <br>
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049800654929006713/image.png">
+
+And we couldn't inject javascript code and have it run server side. <br>
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049800319053336607/image.png">
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049800384044081182/image.png">
+
+Feeling lost, we decided to read the given tips and that's when it hit us. <br>
+Assuming the server was running the UNIX ping command in a shell and displaying it's results to the user, if the input was not sanitized, we could just chain bash commands and have the server do whatever we wanted. <br>
+To test this hypothesis, we had the server print the result of `ping 8.8.8.8 && echo 'teste'`.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049797102928154685/image.png">
+
+Confirming our suspicions, the server printed the results of the ping command, followed by the results of the echo command.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049797172184481833/image.png">
+
+Now that we know this works, all we have to do is cat the /flags/flag.txt file, getting us the flag (flag{6ca240c2e28a4c8db731d68508ec3933})
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049798164896559126/image.png">
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049798219326033930/image.png">
