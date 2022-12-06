@@ -170,6 +170,12 @@ Note: while testing the methods documented here at a later time, for writting pu
 ### Challenge 2
 
 In this challenge we're presented with a website, without it's source code, making it harder to figure out the present vulnerability. <br>
+
+- Q: Que funcionalidades é que estão acessiveis a um utilizador sem este estar autenticado?
+        - Login: Sends a POST request to http://ctf-fsi.fe.up.pt:5000/login.php With given credentials.
+	- Speed report: Sends a GET request to giphy obtaining a gif.
+	- Ping a host: Sends 2 64byte packets to given host and displays ping statistics.
+
 Exploring through the web pages, we noticed multiple possible entry points we could use to exploit. <br>
 These entry points are the following:
 
