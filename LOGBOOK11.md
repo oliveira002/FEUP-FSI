@@ -30,8 +30,12 @@ Next, we ran the commands to look at the decoded content of the files:  `openssl
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1049813886381068338/image.png">
 
-- Q: In the RSA algorithm, we have a public exponent e, a private exponent d, a modulus n, and two secret numbers p and q, such that n = pq. Please identify the values for these elements in your certificate and key files.
-    - R: 
+- Q: In the RSA algorithm, we have a public exponent `e`, a private exponent `d`, a modulus `n`, and two secret numbers `p` and `q`, such that `n = pq`. Please identify the values for these elements in your certificate and key files.
+    - R: public exponent `e`: 
+    - R: private exponent `d`:
+    - R: modulus `n`: 
+    - R: secret number `p`:
+    - R: secret number `q`:
 
 <img src=""> 
 
