@@ -57,6 +57,8 @@ Next, we ran the commands to look at the decoded content of the files:  `openssl
 
     <img src="https://cdn.discordapp.com/attachments/799728570825179213/1049848609316802570/image.png">
 
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049850292209979503/image.png">
+
 ### Task 2
 
 ### Task 3
