@@ -26,7 +26,9 @@ Next, we ran the commands to look at the decoded content of the files:  `openssl
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1049813061017546845/image.png">
 
 - Q: What part of the certificate indicates this is a self-signed certificate?
-    - R: 
+    - R: The fact that the Authority (Issuer) Key Identifier is the same as the Subject Key Identifier
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1049813886381068338/image.png">
 
 - Q: In the RSA algorithm, we have a public exponent e, a private exponent d, a modulus n, and two secret numbers p and q, such that n = pq. Please identify the values for these elements in your certificate and key files.
     - R: 
