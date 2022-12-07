@@ -32,6 +32,9 @@ Next, we ran the commands to look at the decoded content of the files:  `openssl
 
 - Q: In the RSA algorithm, we have a public exponent e, a private exponent d, a modulus n, and two secret numbers p and q, such that n = pq. Please identify the values for these elements in your certificate and key files.
     - R: 
+
+<img src=""> 
+
 ### Task 2
 
 ### Task 3
