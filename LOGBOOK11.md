@@ -2,7 +2,7 @@
 
 ### Task 1
 
-First, we copied the openssl.cnf config file to our working directory
+Firstly, we copied the openssl.cnf config file to our working directory
 
 <img src="https://cdn.discordapp.com/attachments/799728570825179213/1049810971654377522/image.png">
 
