@@ -148,7 +148,7 @@ print(y.decode())
 
 ```
 
-After that, to get the flag, all we needed to do was get the encrypted flag from the server, plug it into the python script and run it.
+After that, to get the flag (flag{788cfba5f093bd21fc231be23f4c8875}), all we needed to do was get the encrypted flag from the server, plug it into the python script and run it.
 
 <img src="https://cdn.discordapp.com/attachments/1021902913079103488/1055960409082957906/image.png">
 
