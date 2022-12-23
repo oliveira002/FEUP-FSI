@@ -61,7 +61,19 @@ Next, we ran the commands to look at the decoded content of the files:  `openssl
 
 ### Task 2
 
+Generating a CSR for www.costa2022.com
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1055913924005998662/image.png">
+
+Adding 2 alternative names to our CSR for www.costa2022.com
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1055914342710780066/image.png">
+
 ### Task 3
+
+After turning our CSR into a X509 certificate and uncommenting the extension copying option, we verified that the alternative names were included in the content of the certificate.
+
+<img src="https://cdn.discordapp.com/attachments/799728570825179213/1055920363680305162/image.png">
 
 ### Task 4
 
@@ -72,4 +84,75 @@ Next, we ran the commands to look at the decoded content of the files:  `openssl
 ## Week 11 CTF Challenge
 ### Challenge 1
 
+In this CTF we're told that the public exponent `e` is 0x10001 and that the primes `p` and `q` are the next primes of 2^512 and 2^513. Then, when we have these numbers, we can calculate the private exponent `d` and use it to decrypt the flag. <br>
+
+With this in mind, we built a script that calculates both primes and with those, calculates the private exponent using the Extented Euclidean Algorithm.
+
+```py
+from binascii import hexlify, unhexlify
+from sympy import *
+
+p = 2**512
+q = 2**513
+
+while True:
+    if isprime(p):
+        print(p)
+        print('\n')
+        break
+    else:
+        p += 1
+
+while True:
+    if isprime(q):
+        print(q)
+        print('\n')
+        break
+    else:
+        q += 1
+
+# Iterative Algorithm (xgcd)
+def iterative_egcd(a, b):
+    x,y, u,v = 0,1, 1,0
+    while a != 0:
+        q,r = b//a,b%a; m,n = x-u*q,y-v*q # use x//y for floor "floor division"
+        b,a, x,y, u,v = a,r, u,v, m,n
+    return b, x, y
+
+def modinv(a, m):
+    g, x, y = iterative_egcd(a, m) 
+    if g != 1:
+        return None
+    else:
+        return x % m
+
+n = p*q
+e = 0x10001 # a constant
+k = ((p-1)*(q-1))
+d = modinv(e,k) # a number such that d*e % ((p-1)*(q-1)) = 1
+
+enc_flag = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000671e6f3cb7da4a3bfb641f806fd8e3afff8b281a918333308c316444b627928f4f793acc72a45646f4e2a8062fe4b353d29cf90d2ff52dcc250fd2bf5c28d0c30c7b5f0aea90e22065203f1a3896e0c1131f0c8b53e5913c000ad69f43acf289196adaadaf603ce52d510e905619cd79c8d278f94a94ff3285e1d5fd7bf37bb"
+
+def enc(x):
+    int_x = int.from_bytes(x, "big")
+    y = pow(int_x,e,n)
+    return hexlify(y.to_bytes(256, 'big'))
+
+def dec(y):
+    int_y = int.from_bytes(unhexlify(y), "big")
+    x = pow(int_y,d,n)
+    return x.to_bytes(256, 'big')
+
+y = dec(enc_flag)
+print(y.decode())
+
+```
+
+After that, to get the flag, all we needed to do was get the encrypted flag from the server, plug it into the python script and run it.
+
+<img src="https://cdn.discordapp.com/attachments/1021902913079103488/1055960409082957906/image.png">
+
 ### Challenge 2
+
+
+
