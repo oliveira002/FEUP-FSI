@@ -77,7 +77,6 @@ After turning our CSR into a X509 certificate and uncommenting the extension cop
 
 ### Task 4
 
-Nota: O membro do grupo responsável pela realização deste guião teve problemas na realização desta tarefa, impossibilitando a realização das consequentes. Estamos cientes que uma entrega tardia poderá acarretar uma penalização.
 
 ### Task 5
 
