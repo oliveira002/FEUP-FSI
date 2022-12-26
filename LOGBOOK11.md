@@ -77,6 +77,30 @@ After turning our CSR into a X509 certificate and uncommenting the extension cop
 
 ### Task 4
 
+NOTE: Our group had problems setting up the Apache server for our own website, so we had to redo the whole lab up until now with the ban32.com website instead, as we didn't manage to resolve our issue in a reasonable time.
+
+Firstly, we uncommented the extension copying option line in our version of the openssl.cnf file and then we turned the server.csr certificate signing request into the server.crt X509 certificate using with the given command
+
+<img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057016372615458916/image.png">
+
+Then, we checked for the presence of the alternative names in the certificate, which they were present.
+
+<img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057017028512334005/image.png">
+
+After that, we fired up the docker container and started a shell on it. With shell access, we enabled the SSL module and the sites described in the bank32_apache_ssl file with the commands `a2enmod ssl` and `a2ensite bank32_apache_ssl` and started the apache server with `servive apache2 start`
+
+Theoritically, to run this whole process for our website, we'd have to create a personalized apache_ssl.conf file, alter the Dockerfile and change the build directory of the website in the docker-compose.yml file.
+
+Something we found strange was the fact that when we loaded up the https://bank32.com website, we could access it, despite the lab handout telling us we weren't supposed to. We did get a warning from Firefox though.
+
+<img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057018785082638386/image.png">
+
+We decided to load the ca.crt certificate into Firefox anyway, which, contrary to what we believed, did not remove the warning. We can't really explain why we could access the website without the certificate loaded and why, after having loaded it, the warning's still there. <br>
+Anyhow, both the HTTPS and the HTTP versions of the website are up and running.
+
+<img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057015113267290142/image.png">
+<img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057015176978771988/image.png">
+
 
 ### Task 5
 
