@@ -101,8 +101,19 @@ Anyhow, both the HTTPS and the HTTP versions of the website are up and running.
 <img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057015113267290142/image.png">
 <img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057015176978771988/image.png">
 
-
 ### Task 5
+
+We changed the VirtualHost entry and emulated the result of a DNS cache poisoning attack.
+
+<img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057030070486695946/image.png">
+
+When we tried to access the website we targeted, Firefox stopped us from accessing it.
+
+<img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057030728593985656/image.png">
+
+Even so we still chose to go through with the loading of the webpage, leading us to our website, instead of the real youtube.com
+
+<img src="https://cdn.discordapp.com/attachments/1049764414255018045/1057031012196036628/image.png">
 
 ### Task 6
 
